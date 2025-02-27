@@ -42,10 +42,21 @@ This is the backend part of the Book Shop application, built with Node.js and Ex
 4. Set up your environment variables in a `.env` file:
 
     ```
-    PORT=5000
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret
-    SURJOPAY_API_KEY=your_surjopay_api_key
+    NODE_ENV
+
+  PORT=5000
+  DATABASE_URL=your_database_url
+  BCRYPT_SALT_ROUND=your_bcrypt_salt_round
+  JWT_ACCESS_SECRET=your_jwt_access_secret
+  JWT_REFRESH_SECRET=your_jwt_refresh_secret
+  JWT_ACCESS_EXPIRES_IN=your_jwt_access_expires_in
+  JWT_REFRESH_EXPIRES_IN=your_jwt_refresh_expires_in
+  SP_ENDPOINT=your_sp_endpoint
+  SP_USERNAME=your_sp_username
+  SP_PASSWORD=your_sp_password
+  SP_PREFIX=your_sp_prefix
+  SP_RETURN_URL=your_sp_return_url
+
     ```
 
 5. Start the backend server:
