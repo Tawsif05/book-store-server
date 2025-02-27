@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authRoutes = void 0;
+const express_1 = require("express");
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const user_validation_1 = require("../User/user.validation");
+const auth_controller_1 = require("./auth.controller");
+const auth_validation_1 = require("./auth.validation");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const auth_interface_1 = require("./auth.interface");
+const authRouter = (0, express_1.Router)();
+authRouter.post('/register', (0, validateRequest_1.default)(user_validation_1.userValidation.userValidationSchema), auth_controller_1.authControllers.registerUser);
+authRouter.post('/login', (0, validateRequest_1.default)(auth_validation_1.authValidation.loginValidationSchema), auth_controller_1.authControllers.loginUser);
+authRouter.post('/change-password', (0, auth_1.default)(auth_interface_1.USER_ROLE.user, auth_interface_1.USER_ROLE.admin), (0, validateRequest_1.default)(auth_validation_1.authValidation.changePasswordValidationSchema), auth_controller_1.authControllers.changePassword);
+authRouter.post('/refresh-token', auth_controller_1.authControllers.refreshToken);
+authRouter.get('/me', (0, auth_1.default)(auth_interface_1.USER_ROLE.user, auth_interface_1.USER_ROLE.admin), auth_controller_1.authControllers.getMe);
+authRouter.get('/all-users', (0, auth_1.default)(auth_interface_1.USER_ROLE.admin), auth_controller_1.authControllers.getAllUsers);
+authRouter.patch('/update-profile', (0, auth_1.default)(auth_interface_1.USER_ROLE.user, auth_interface_1.USER_ROLE.admin), auth_controller_1.authControllers.updateProfile);
+authRouter.post("/change-status/:userId", (0, auth_1.default)(auth_interface_1.USER_ROLE.admin), auth_controller_1.authControllers.changeStatus);
+exports.authRoutes = authRouter;
